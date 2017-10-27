@@ -1,0 +1,19 @@
+1.Android ButterKnife Zelezny （快速定义控件）
+2.GsonFormat （根据json数据自动生成实体类）
+3.Android Parcelable code generator （在实体类中实现Parcelable接口
+				      1实现Parcelable就是为了进行序列化
+
+				      1.永久性保存对象，保存对象的字节序列到本地文件中
+
+				      2.通过序列化对象在网络中传递对象
+
+				      3.通过序列化在进程间传递对象。）
+4.Retrofit  (网络框架)
+5.retrolambda（拉姆达）
+6.Appcompat （com.android.support:appcompat-v7  design RecyclerView）
+7.Guava ( 核心库 
+	  1.Optional（）
+	  2.Preconditions（判断前置条件的方法）
+          3.Ordering（排序器）
+          4.LoadingCache(缓存) 本地缓存不会保存数据
+          5.Joiner 字符处理器)

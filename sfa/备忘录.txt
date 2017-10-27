@@ -1,0 +1,8 @@
+
+
+1.ason（json）
+2.setSupportBackgroundTintList （设置背景）
+3.merge（布局）
+4.RecyclerView.RecycledViewPool
+
+5.? layout 转 drawable

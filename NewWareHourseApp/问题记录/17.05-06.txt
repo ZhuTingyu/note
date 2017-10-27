@@ -1,0 +1,6 @@
+5.22.-> (rxjava)（观察者模式）
+5.23.BehaviorSubject
+5.24.Scheduler.Worker,ReentrantLock,Collections(集合运算工具)，SoftReference（软引用），Fresco（图片缓存）
+5.25。ConstraintLayout(约束布局)，beanDao（数据库框架），RxPermissions，BottomNavigationView，Field，SwipeRefreshLayout
+5.26.toolbar，ConvenientBanner
+5.27.toolbar(自定义颜色)，databinding

@@ -1,0 +1,74 @@
+gradle
+
+---------------------------------6.2---------------------------------
+
+1.?Android DSL
+
+2.buildscrip{}  --> 配置驱动构建过程  maven 文件依赖路径 ?mavenCentral(),jcenter()是指定仓库URL的简单方法。Gradle支持远程和本地仓库。
+
+3.android{}-->配置所有Android构建过程需要的参数
+
+4.配置项目结构 sourceSets{}；setRoot() 移动整个组件在新的文件夹中
+
+5.通用任务
+		1.assemble 组合项目所有输出
+		2.check 执行所有检查
+		3.build 执行以上两个工作
+		4.clean 清空项目输出
+		5.connectedCheck 在一个指定的设备执行检查，可同时多连
+		6.deviceCheck 通过apis连接远程设备执行检查，在CL服务器使用
+
+6.Manifest属性 
+		1.Android{}-->defaultConfig 定义Android所有配置
+		2.?minSdkVersion ，targetSdkVersion 区别，versionCode，versionName
+
+7.buildTypes(构建类型)-->生成debug和release版本  
+		1.能否在安全设备上调试
+		2.apk签名 debug >name/password  release-->之中没有签名
+
+
+8.签名配置
+		signingConfigs{
+	    	storeFile file('')
+        	storePassword ""
+        	keyAlias ""
+       		keyPassword ""
+		}
+
+9.Proguard(混淆器)-->发布版本使用buildtype中声明的规则文件
+		buildTypes{
+			proguardFile getDefaultProguardFile('proguard-android.txt')
+		}
+		productFlavors{}-->定制产品版本
+
+10.添加依赖
+		dependencies{
+			compile (主module)
+			debugConmpile（debug类型的编译）
+			releaseCompile（发布类型的编译）
+		}
+
+
+---------------------------------6.4---------------------------------
+
+11.多项目设置
+
+MyProject/              
+ 		+ app/                  :app
+ 		+ libraries/----------->
+    	+ lib1/              :libraries:lib1
+    	+ lib2/              :libraries:lib2
+
+setting.gradle -->  声明所有项目
+		include ':app', ':libraries:lib1', ':libraries:lib2'
+
+12.Library projects (库项目)
+		compile project(':libraies:lib1') --> 引用库项目，顺序很重要
+
+13.Library Publication(库项目发布)
+		androoid{
+			defaultPublishConfig"debug/flavor1Debug"   默认版本/自定义版本
+		}
+
+14.
+d

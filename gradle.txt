@@ -1,0 +1,122 @@
+gradle
+
+ http://avatarqing.github.io/Gradle-Plugin-User-Guide-Chinese-Verision/
+
+
+---------------------------------6.2---------------------------------
+
+1.?Android DSL
+
+2.buildscrip{}  --> 配置驱动构建过程  maven 文件依赖路径 ?mavenCentral(),jcenter()是指定仓库URL的简单方法。Gradle支持远程和本地仓库。
+
+3.android{}-->配置所有Android构建过程需要的参数
+
+4.配置项目结构 sourceSets{}；setRoot() 移动整个组件在新的文件夹中
+
+5.通用任务
+		1.assemble 组合项目所有输出
+		2.check 执行所有检查
+		3.build 执行以上两个工作
+		4.clean 清空项目输出
+		5.connectedCheck 在一个指定的设备执行检查，可同时多连
+		6.deviceCheck 通过apis连接远程设备执行检查，在CL服务器使用
+
+6.Manifest属性 
+		1.Android{}-->defaultConfig 定义Android所有配置
+		2.?minSdkVersion ，targetSdkVersion 区别，versionCode，versionName
+
+7.buildTypes(构建类型)-->生成debug和release版本  
+		1.能否在安全设备上调试
+		2.apk签名 debug >name/password  release-->之中没有签名
+
+
+8.签名配置
+		signingConfigs{
+	    	storeFile file('')
+        	storePassword ""
+        	keyAlias ""
+       		keyPassword ""
+		}
+
+9.Proguard(混淆器)-->发布版本使用buildtype中声明的规则文件
+http://www.jianshu.com/p/f3455ecaa56e
+		buildTypes
+			minifyEnable true
+			proguardFile getDefaultProguardFile('proguard-android.txt')
+		}
+		productFlavors{}-->定制产品版本
+
+10.添加依赖
+		dependencies{
+			compile (主module)
+			debugConmpile（debug类型的编译）
+			releaseCompile（发布类型的编译）
+		}
+
+
+---------------------------------6.4---------------------------------
+
+11.多项目设置
+
+MyProject/              
+ 		+ app/                  :app
+ 		+ libraries/----------->
+    	+ lib1/              :libraries:lib1
+    	+ lib2/              :libraries:lib2
+
+setting.gradle -->  声明所有项目
+		include ':app', ':libraries:lib1', ':libraries:lib2'
+
+12.Library projects (库项目)
+		compile project(':libraies:lib1') --> 引用库项目，顺序很重要
+
+13.Library Publication(库项目发布)
+		androoid{
+			defaultPublishConfig"debug/flavor1Debug"  (默认版本/自定义版本)
+		}
+
+14.定制不同的版本 -->以下声明的版本与默认的debug和release生成4个build variant
+		
+    productFlavors {
+        flavor1 {}
+        flavor2 {}
+    }
+
+15.Sourcesets and Dependencies (源组件和依赖关系)-->与Build Type 类似，Pfoduct Flavor通过自己的sourceSet同源代码和资源。
+
+	android.sourceSets.flavor1-->位于src/flavor1
+	android.sourceSets.flavor2-->位于src/flavor2
+
+	-->创建两种sourceSet
+	这些sourceSet与android.sourceSet.main 和Build Type的sourceSet来构建APK
+	下面规则用于处理所有的sourceSet来构建一个APK:
+	1.多个文件夹中所有的源代码（src/*/java）都会合并起来生成一个输出。
+	2.所有的Manifet文件都会合成一个文件。类似于Build Type，允许Product Flaovor可以拥有不同的组件和权限声明。
+	3.所有使用的资源（res和assetes）遵循的优先级为Build Type会覆盖Product Flavor,最终覆盖main sourceSet的资源
+	4.每一个Build Variant都会根据资源生成自己的R类（或者其它一些源代码）。Variant互相之间没有什么是共享的
+
+16. Building and Tasks(构建和任务)
+	assemble<Variant Name> 允许直接构建一个Variant（Build Type + Porduct Flavor Name）版本
+
+17. Flavor Groups每一个Group代表一个维度，并且flavor都被分配到一个指定的Group中
+	android{
+		flavorGroups "abi", "version"
+
+		productFlavors{
+			freeapp{
+				flavorGroup "version"
+			}
+
+			x86{
+				flavorGroup "abi"
+			}
+		}
+	}
+
+18.java编译选项 --> 影响所有task编译java源代码
+	android{
+		compileOptions{
+			sourceCompatibility = "1.6"
+			targetCompatibility = "1.6"
+		}
+	}
